@@ -122,7 +122,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { conversationId, content, type } = body;
+    const { conversationId, content, type, attachments } = body;
 
     if (!conversationId) {
       return NextResponse.json(
@@ -131,7 +131,11 @@ export async function POST(request: Request) {
       );
     }
 
-    const validation = sendMessageSchema.safeParse({ content, type });
+    const validation = sendMessageSchema.safeParse({
+      content,
+      type,
+      attachments,
+    });
     if (!validation.success) {
       return NextResponse.json(
         {
@@ -167,6 +171,13 @@ export async function POST(request: Request) {
         content: validation.data.content,
         type: validation.data.type,
         isDelivered: true,
+        ...(validation.data.attachments?.length
+          ? {
+              attachments: {
+                create: validation.data.attachments,
+              },
+            }
+          : {}),
       },
       include: {
         sender: {

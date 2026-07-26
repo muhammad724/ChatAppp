@@ -6,8 +6,9 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { cn } from "@/src/lib/utils";
-import { Send, Smile } from "lucide-react";
+import { Palette, Send, Smile } from "lucide-react";
 import dynamic from "next/dynamic";
+import WhiteboardModal from "./WhiteboardModal";
 
 const EmojiPicker = dynamic(() => import("./EmojiPicker"), {
   loading: () => null,
@@ -18,6 +19,7 @@ interface MessageInputProps {
   onSend: (content: string) => void | Promise<void>;
   onTyping: () => void;
   onStopTyping: () => void;
+  onSendDrawing: (drawing: Blob) => Promise<void>;
   className?: string;
   placeholder?: string;
 }
@@ -26,12 +28,15 @@ export default function MessageInput({
   onSend,
   onTyping,
   onStopTyping,
+  onSendDrawing,
   className,
   placeholder = "Type a message...",
 }: MessageInputProps) {
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showWhiteboard, setShowWhiteboard] = useState(false);
+  const [isSendingDrawing, setIsSendingDrawing] = useState(false);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -101,6 +106,19 @@ export default function MessageInput({
     inputRef.current?.focus();
   };
 
+  const handleSendDrawing = useCallback(
+    async (drawing: Blob) => {
+      setIsSendingDrawing(true);
+      try {
+        await onSendDrawing(drawing);
+        setShowWhiteboard(false);
+      } finally {
+        setIsSendingDrawing(false);
+      }
+    },
+    [onSendDrawing]
+  );
+
   return (
     <div
       ref={containerRef}
@@ -131,6 +149,19 @@ export default function MessageInput({
           <Smile className="h-5 w-5" />
         </button>
 
+        <button
+          type="button"
+          onClick={() => {
+            setShowEmojiPicker(false);
+            setShowWhiteboard(true);
+          }}
+          aria-label="Open whiteboard"
+          title="Whiteboard"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-black transition-all hover:scale-105 hover:bg-zinc-100 active:scale-95 dark:text-white dark:hover:bg-zinc-700"
+        >
+          <Palette className="h-5 w-5" />
+        </button>
+
         <div className="min-w-0 flex-1">
           <textarea
             ref={inputRef}
@@ -159,6 +190,14 @@ export default function MessageInput({
           <Send className={cn("h-5 w-5", isSending && "animate-pulse")} />
         </button>
       </div>
+      <WhiteboardModal
+        isOpen={showWhiteboard}
+        isSending={isSendingDrawing}
+        onClose={() => {
+          if (!isSendingDrawing) setShowWhiteboard(false);
+        }}
+        onSend={handleSendDrawing}
+      />
     </div>
   );
 }

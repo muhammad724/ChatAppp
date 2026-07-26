@@ -86,12 +86,20 @@ export const addMembersSchema = z.object({
     .min(1, "At least one member is required"),
 });
 
+const messageAttachmentSchema = z.object({
+  url: z.string().url("Attachment URL must be valid"),
+  type: z.string().min(1).max(100),
+  name: z.string().min(1).max(255),
+  size: z.number().int().nonnegative().max(10 * 1024 * 1024),
+});
+
 export const sendMessageSchema = z.object({
   content: z
     .string()
     .min(1, "Message cannot be empty")
     .max(5000, "Message is too long"),
   type: z.enum(["text", "image", "video", "file", "audio"]).default("text"),
+  attachments: z.array(messageAttachmentSchema).max(10).optional(),
 });
 
 export const searchSchema = z.object({

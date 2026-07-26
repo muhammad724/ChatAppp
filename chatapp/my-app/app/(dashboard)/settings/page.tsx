@@ -54,7 +54,7 @@ export default function SettingsPage() {
                 <h2 className="truncate text-xl font-semibold text-zinc-900 dark:text-white">
                   {user.username}
                 </h2>
-                <p className="mt-0.5 text-sm text-green-600 dark:text-green-400">
+                <p className="mt-0.5 text-sm text-black dark:text-white">
                   Online
                 </p>
               </div>

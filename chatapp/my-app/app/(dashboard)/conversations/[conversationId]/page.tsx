@@ -137,6 +137,65 @@ export default function ConversationChatWindow() {
     [conversationId]
   );
 
+  const handleSendDrawing = useCallback(
+    async (drawing: Blob) => {
+      setSendError(null);
+
+      try {
+        const fileName = `whiteboard-${Date.now()}.png`;
+        const uploadData = new FormData();
+        uploadData.append(
+          "file",
+          new File([drawing], fileName, { type: "image/png" })
+        );
+        uploadData.append("type", "message-image");
+
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: uploadData,
+        });
+        const uploadResult = await uploadResponse.json();
+        if (!uploadResponse.ok || !uploadResult.success || !uploadResult.data) {
+          throw new Error(uploadResult.error || "Failed to upload drawing");
+        }
+
+        const response = await fetch("/api/messages", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            conversationId,
+            content: "Whiteboard drawing",
+            type: "image",
+            attachments: [
+              {
+                url: uploadResult.data.url,
+                type: "image/png",
+                name: uploadResult.data.name || fileName,
+                size: uploadResult.data.size || drawing.size,
+              },
+            ],
+          }),
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || "Failed to send drawing");
+        }
+
+        setMessages((previous) =>
+          previous.some((message) => message.id === result.data.id)
+            ? previous
+            : [...previous, result.data]
+        );
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : "Failed to send drawing";
+        setSendError(message);
+        throw error;
+      }
+    },
+    [conversationId]
+  );
+
   // Get display name and avatar
   const getDisplayInfo = () => {
     if (!conversation) return { name: "Loading...", avatar: null };
@@ -395,6 +454,7 @@ export default function ConversationChatWindow() {
       )}
       <MessageInput
         onSend={handleSend}
+        onSendDrawing={handleSendDrawing}
         onTyping={() => undefined}
         onStopTyping={() => undefined}
       />
