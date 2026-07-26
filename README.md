@@ -17,8 +17,8 @@ Copy `chatapp/.env.example` to `chatapp/.env` and supply your own credentials.
 
 ### Deploying the web application to Vercel
 
-The repository-level `vercel.json` deploys `chatapp/my-app`, so the repository
-can be imported into Vercel without custom build or output settings.
+Set the Vercel project's **Root Directory** to `chatapp/my-app`. The
+app-local `vercel.json` then uses `npm install` and `npm run build`.
 
 Add these variables in **Vercel → Project Settings → Environment Variables**
 for Production (and Preview if preview deployments need to work):
