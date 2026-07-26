@@ -216,7 +216,7 @@ export default function ConversationChatWindow() {
       <div className="flex items-center gap-3 bg-white px-5 py-4">
         <Link
           href="/conversations"
-          className="rounded-lg p-1 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 lg:hidden"
+          className="rounded-lg p-1 text-black hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-800 lg:hidden"
         >
           <ArrowLeft className="h-5 w-5" />
         </Link>
@@ -235,7 +235,7 @@ export default function ConversationChatWindow() {
             {isConnected ? "Online" : "Reconnecting…"}
           </p>
         </div>
-        <div className="flex items-center gap-1 text-[#8f9691]">
+        <div className="flex items-center gap-1 text-black">
           <button
             type="button"
             onClick={() => setIsPinned((pinned) => !pinned)}
@@ -288,7 +288,7 @@ export default function ConversationChatWindow() {
             <button
               type="button"
               onClick={() => setOpenPanel(null)}
-              className="rounded-full p-1.5 text-[#8f9691] hover:bg-[#f2f5f2] hover:text-black"
+              className="rounded-full p-1.5 text-black hover:bg-[#f2f5f2]"
               aria-label="Close shared media"
             >
               <X className="h-4 w-4" />
@@ -315,7 +315,7 @@ export default function ConversationChatWindow() {
                 ))}
               </div>
             ) : (
-              <p className="rounded-xl bg-[#f5f7f5] p-4 text-center text-xs text-[#8f9691]">
+              <p className="rounded-xl bg-[#f5f7f5] p-4 text-center text-xs text-black">
                 No shared images yet
               </p>
             )
@@ -335,7 +335,7 @@ export default function ConversationChatWindow() {
               ))}
             </div>
           ) : (
-            <p className="rounded-xl bg-[#f5f7f5] p-4 text-center text-xs text-[#8f9691]">
+            <p className="rounded-xl bg-[#f5f7f5] p-4 text-center text-xs text-black">
               No shared files yet
             </p>
           )}
@@ -349,11 +349,11 @@ export default function ConversationChatWindow() {
       >
         {messages.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <MessageCircle className="mb-4 h-12 w-12 text-zinc-300 dark:text-zinc-600" />
+            <MessageCircle className="mb-4 h-12 w-12 text-black dark:text-white" />
             <h3 className="text-lg font-medium text-zinc-900 dark:text-white">
               No messages yet
             </h3>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-black dark:text-white">
               Send a message to start the conversation
             </p>
           </div>
@@ -363,7 +363,7 @@ export default function ConversationChatWindow() {
               <div key={group.date}>
                 {/* Date Separator */}
 <div className="my-4 flex items-center justify-center">
-                  <span className="rounded-full bg-white/75 px-4 py-1.5 text-[10px] font-medium text-[#949a96]">
+                  <span className="rounded-full bg-white/75 px-4 py-1.5 text-[10px] font-medium text-black">
                     {formatDateSeparator(group.date)}
                   </span>
                 </div>

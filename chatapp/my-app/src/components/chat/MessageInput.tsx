@@ -125,7 +125,7 @@ export default function MessageInput({
             "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all hover:scale-105 active:scale-95",
             showEmojiPicker
               ? "bg-[#eef7f3] text-black"
-              : "text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-700 dark:hover:text-zinc-300"
+              : "text-black hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-700"
           )}
         >
           <Smile className="h-5 w-5" />
@@ -153,7 +153,7 @@ export default function MessageInput({
             "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all active:scale-90",
             message.trim() && !isSending
               ? "rounded-full bg-black text-white shadow-md shadow-black/15 hover:scale-105 hover:shadow-lg"
-              : "bg-zinc-100 text-zinc-400 dark:bg-zinc-700"
+              : "bg-zinc-100 text-black dark:bg-zinc-700 dark:text-white"
           )}
         >
           <Send className={cn("h-5 w-5", isSending && "animate-pulse")} />

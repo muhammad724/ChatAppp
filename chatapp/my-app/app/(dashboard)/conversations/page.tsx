@@ -10,11 +10,11 @@ export default function ConversationsPage() {
         <h1 className="mt-6 text-2xl font-semibold tracking-tight text-black">
           Your conversations
         </h1>
-        <p className="mt-2 text-sm leading-6 text-[#858b87]">
+        <p className="mt-2 text-sm leading-6 text-black">
           Choose someone from Messages to open a chat and continue the
           conversation.
         </p>
-        <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-medium text-[#68706b] shadow-sm">
+        <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-medium text-black shadow-sm">
           <MousePointer2 className="h-3.5 w-3.5" />
           Select a person on the left
         </div>

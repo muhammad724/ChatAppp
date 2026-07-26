@@ -42,7 +42,7 @@ export default function SettingsPage() {
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">
           Profile settings
         </h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 text-sm text-black dark:text-white">
           View your account and manage your session.
         </p>
 
@@ -64,10 +64,10 @@ export default function SettingsPage() {
           <div className="space-y-3 p-6">
             <div className="flex items-center gap-3 rounded-2xl bg-violet-50/80 p-4 dark:bg-white/5">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-sm dark:bg-zinc-800">
-                <UserRound className="h-5 w-5 text-zinc-400" />
+                <UserRound className="h-5 w-5 text-black dark:text-white" />
               </div>
               <div>
-                <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                <p className="text-xs font-medium uppercase tracking-wide text-black dark:text-white">
                   Username
                 </p>
                 <p className="text-sm font-medium text-zinc-900 dark:text-white">
@@ -78,10 +78,10 @@ export default function SettingsPage() {
 
             <div className="flex items-center gap-3 rounded-2xl bg-violet-50/80 p-4 dark:bg-white/5">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-sm dark:bg-zinc-800">
-                <Mail className="h-5 w-5 text-zinc-400" />
+                <Mail className="h-5 w-5 text-black dark:text-white" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                <p className="text-xs font-medium uppercase tracking-wide text-black dark:text-white">
                   Email address
                 </p>
                 <p className="truncate text-sm font-medium text-zinc-900 dark:text-white">

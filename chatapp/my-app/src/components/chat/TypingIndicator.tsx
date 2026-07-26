@@ -31,15 +31,15 @@ export default function TypingIndicator({
 return (
     <div
       className={cn(
-        "flex items-center gap-1.5 px-4 py-1.5 text-xs text-zinc-500 dark:text-zinc-400 animate-fade-in",
+        "flex items-center gap-1.5 px-4 py-1.5 text-xs text-black dark:text-white animate-fade-in",
         className
       )}
     >
       {/* Typing dots animation */}
       <div className="flex items-center gap-1">
-        <span className="typing-dot h-2 w-2 rounded-full bg-blue-400 dark:bg-blue-500" />
-        <span className="typing-dot h-2 w-2 rounded-full bg-blue-400 dark:bg-blue-500" />
-        <span className="typing-dot h-2 w-2 rounded-full bg-blue-400 dark:bg-blue-500" />
+        <span className="typing-dot h-2 w-2 rounded-full bg-black dark:bg-white" />
+        <span className="typing-dot h-2 w-2 rounded-full bg-black dark:bg-white" />
+        <span className="typing-dot h-2 w-2 rounded-full bg-black dark:bg-white" />
       </div>
       <span className="italic">{getText()}</span>
     </div>

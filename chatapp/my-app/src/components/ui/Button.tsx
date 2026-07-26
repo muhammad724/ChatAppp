@@ -42,9 +42,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       danger:
         "bg-gradient-to-br from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 focus:ring-red-500 shadow-md shadow-red-500/20",
       ghost:
-        "text-zinc-700 hover:bg-zinc-100 focus:ring-zinc-500 dark:text-zinc-300 dark:hover:bg-zinc-800",
+        "text-black hover:bg-zinc-100 focus:ring-zinc-500 dark:text-white dark:hover:bg-zinc-800",
       outline:
-        "border border-zinc-300 text-zinc-700 hover:bg-zinc-50 focus:ring-zinc-500 dark:border-zinc-600 dark:text-zinc-300 dark:hover:bg-zinc-800",
+        "border border-zinc-300 text-black hover:bg-zinc-50 focus:ring-zinc-500 dark:border-zinc-600 dark:text-white dark:hover:bg-zinc-800",
     };
 
     const sizes = {

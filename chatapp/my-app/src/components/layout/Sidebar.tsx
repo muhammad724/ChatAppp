@@ -126,7 +126,7 @@ export default function Sidebar({ className }: SidebarProps) {
   }
 
   const railItem =
-    "grid h-11 w-11 place-items-center rounded-full text-[#7f837f] transition-all hover:bg-white hover:text-black";
+    "grid h-11 w-11 place-items-center rounded-full text-black transition-all hover:bg-white hover:text-black";
 
   return (
     <>
@@ -200,7 +200,7 @@ export default function Sidebar({ className }: SidebarProps) {
         <div className="flex min-w-0 flex-1 flex-col bg-white">
           <div className="p-3 pb-1">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9ca09d]" />
+              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-black" />
               <input
                 ref={searchInputRef}
                 type="search"
@@ -216,7 +216,7 @@ export default function Sidebar({ className }: SidebarProps) {
             <h1 className="text-xl font-semibold tracking-tight text-black">
               Messages
             </h1>
-            <span className="text-xs text-[#9ca09d]">{filteredUsers.length}</span>
+            <span className="text-xs text-black">{filteredUsers.length}</span>
           </div>
 
           {error && (
@@ -260,14 +260,14 @@ export default function Sidebar({ className }: SidebarProps) {
                           <p className="truncate text-sm font-medium text-black">
                             {user.username}
                             {isMe && (
-                              <span className="ml-1 text-[#9ca09d]">(You)</span>
+                              <span className="ml-1 text-black">(You)</span>
                             )}
                           </p>
-                          <span className="shrink-0 text-[10px] text-[#9ca09d]">
+                          <span className="shrink-0 text-[10px] text-black">
                             {isMe ? "Now" : ""}
                           </span>
                         </div>
-                        <p className="truncate text-xs text-[#9ca09d]">
+                        <p className="truncate text-xs text-black">
                           {isMe ? "Your account" : "Click to start a conversation"}
                         </p>
                       </div>

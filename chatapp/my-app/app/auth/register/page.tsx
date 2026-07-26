@@ -63,13 +63,13 @@ export default function RegisterPage() {
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[1.4rem] bg-black shadow-lg shadow-black/20">
             <MessageSquare className="h-8 w-8 text-white" />
           </div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#7d857f]">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-black">
             Convo
           </p>
           <h1 className="text-2xl font-semibold tracking-tight text-black">
             Join Convo
           </h1>
-          <p className="mt-2 text-sm text-[#8f9691]">
+          <p className="mt-2 text-sm text-black">
             Start chatting with your friends
           </p>
         </div>
@@ -115,7 +115,7 @@ export default function RegisterPage() {
           </Button>
         </form>
 
-        <p className="text-center text-sm text-[#8f9691]">
+        <p className="text-center text-sm text-black">
           Already have an account?{" "}
           <Link
             href="/auth/login"

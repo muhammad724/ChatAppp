@@ -31,7 +31,7 @@ export default function Navbar({ className }: NavbarProps) {
         className
       )}
     >
-      <h2 className="text-lg font-bold tracking-tight text-[#21193a] dark:text-white">
+      <h2 className="text-lg font-bold tracking-tight text-black dark:text-white">
         {getPageTitle()}
       </h2>
 
@@ -40,7 +40,7 @@ export default function Navbar({ className }: NavbarProps) {
           type="button"
           onClick={toggleTheme}
           aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          className="rounded-2xl bg-violet-100/70 p-2.5 text-violet-700 transition-all hover:scale-105 hover:bg-violet-200 active:scale-95 dark:bg-violet-400/10 dark:text-violet-300 dark:hover:bg-violet-400/20"
+          className="rounded-2xl bg-violet-100/70 p-2.5 text-black transition-all hover:scale-105 hover:bg-violet-200 active:scale-95 dark:bg-violet-400/10 dark:text-white dark:hover:bg-violet-400/20"
         >
           {mounted && theme === "dark" ? (
             <Sun className="h-5 w-5" />

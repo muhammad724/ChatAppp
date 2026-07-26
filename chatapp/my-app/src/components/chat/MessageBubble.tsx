@@ -122,7 +122,7 @@ export default function MessageBubble({
           <span
             className={cn(
               "text-[10px]",
-              isOwn ? "text-[#9ca09d]" : "text-white/45"
+              isOwn ? "text-black" : "text-white"
             )}
           >
             {formatMessageTime(message.createdAt)}
@@ -134,7 +134,7 @@ export default function MessageBubble({
               ) : message.isDelivered ? (
                 <CheckCheck className="h-3.5 w-3.5 text-[#65c45b]" />
               ) : (
-                <Check className="h-3.5 w-3.5 text-[#9ca09d]" />
+                <Check className="h-3.5 w-3.5 text-black" />
               )}
             </>
           )}

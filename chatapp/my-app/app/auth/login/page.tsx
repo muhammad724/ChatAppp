@@ -63,13 +63,13 @@ export default function LoginPage() {
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[1.4rem] bg-black shadow-lg shadow-black/20">
             <MessageSquare className="h-8 w-8 text-white" />
           </div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#7d857f]">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.28em] text-black">
             Convo
           </p>
           <h1 className="text-2xl font-semibold tracking-tight text-black">
             Welcome to Convo
           </h1>
-          <p className="mt-2 text-sm text-[#8f9691]">
+          <p className="mt-2 text-sm text-black">
             Sign in to your account to continue
           </p>
         </div>
@@ -105,7 +105,7 @@ export default function LoginPage() {
           </Button>
         </form>
 
-        <p className="text-center text-sm text-[#8f9691]">
+        <p className="text-center text-sm text-black">
           Don&apos;t have an account?{" "}
           <Link
             href="/auth/register"
