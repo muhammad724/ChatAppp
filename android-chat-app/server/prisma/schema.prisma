@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+}
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+}
+
+model User {
+  id                   String                @id @db.Uuid
+  username             String                @unique @db.VarChar(30)
+  displayName          String                @db.VarChar(60)
+  avatarUrl            String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  lastSeenAt           DateTime?
+  conversationMembers  ConversationMember[]
+  sentMessages         Message[]             @relation("SentMessages")
+  hiddenMessages       HiddenMessage[]
+
+  @@index([username])
+}
+
+model Conversation {
+  id          String                @id @default(uuid()) @db.Uuid
+  pairKey     String                @unique @db.VarChar(73)
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  lastMessageAt DateTime?
+  members     ConversationMember[]
+  messages    Message[]
+
+  @@index([lastMessageAt(sort: Desc)])
+}
+
+model ConversationMember {
+  conversationId String       @db.Uuid
+  userId         String       @db.Uuid
+  joinedAt       DateTime     @default(now())
+  lastReadAt     DateTime?
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([conversationId, userId])
+  @@index([userId, conversationId])
+}
+
+model Message {
+  id                 String        @id @default(uuid()) @db.Uuid
+  conversationId     String        @db.Uuid
+  senderId           String        @db.Uuid
+  clientId           String        @db.VarChar(64)
+  type               MessageType
+  text               String?       @db.VarChar(4000)
+  imageUrl           String?
+  cloudinaryPublicId String?
+  status             MessageStatus @default(SENT)
+  createdAt          DateTime      @default(now())
+  editedAt           DateTime?
+  deletedForEveryoneAt DateTime?
+  conversation       Conversation  @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender             User          @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  hiddenFor          HiddenMessage[]
+
+  @@unique([senderId, clientId])
+  @@index([conversationId, createdAt(sort: Desc)])
+  @@index([senderId])
+}
+
+model HiddenMessage {
+  messageId String  @db.Uuid
+  userId    String  @db.Uuid
+  hiddenAt  DateTime @default(now())
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([messageId, userId])
+  @@index([userId])
+}

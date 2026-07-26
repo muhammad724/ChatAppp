@@ -1,0 +1,25 @@
+{
+  "name": "convo-chat",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": ["mobile", "server"],
+  "scripts": {
+    "dev:server": "npm run dev -w server",
+    "dev:mobile": "npm run start -w mobile",
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w mobile",
+    "lint": "npm run lint -w server && npm run lint -w mobile",
+    "test": "npm run test -w server",
+    "build": "npm run build -w server"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "overrides": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  }
+}

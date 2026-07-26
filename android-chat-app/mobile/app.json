@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Convo",
+    "slug": "convo-chat",
+    "scheme": "convo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Convo needs photo access so you can share images.",
+          "cameraPermission": "Convo needs camera access so you can take and share photos."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Convo needs camera access so you can take and share photos."
+        }
+      ]
+    ],
+    "android": {
+      "package": "com.example.convo",
+      "usesCleartextTraffic": true,
+      "permissions": ["CAMERA", "READ_MEDIA_IMAGES"]
+    },
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

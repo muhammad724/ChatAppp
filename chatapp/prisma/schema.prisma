@@ -1,0 +1,210 @@
+// ============================================================================
+// Prisma Schema v7.9.0 - Chat Application Database Models
+// ============================================================================
+
+generator client {
+  provider = "prisma-client"
+  output   = "../my-app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── User Model ─────────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  avatar    String?
+  bio       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  sentMessages      Message[]          @relation("SentMessages")
+  participants      Participant[]
+  reactions         MessageReaction[]
+  typingStatuses    TypingStatus[]
+  notifications     Notification[]
+  settings          Settings?
+}
+
+// ─── Conversation Model ─────────────────────────────────────────────────────
+
+model Conversation {
+  id        String           @id @default(uuid())
+  type      ConversationType @default(one_to_one)
+  name      String?
+  avatar    String?
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  // Relationships
+  participants   Participant[]
+  messages       Message[]
+  typingStatuses TypingStatus[]
+}
+
+enum ConversationType {
+  one_to_one
+  group
+}
+
+// ─── Participant Model ──────────────────────────────────────────────────────
+
+model Participant {
+  id             String   @id @default(uuid())
+  userId         String
+  conversationId String
+  role           ParticipantRole @default(member)
+  joinedAt       DateTime @default(now())
+
+  // Relationships
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, conversationId])
+  @@index([userId])
+  @@index([conversationId])
+}
+
+enum ParticipantRole {
+  admin
+  member
+}
+
+// ─── Message Model ──────────────────────────────────────────────────────────
+
+model Message {
+  id             String      @id @default(uuid())
+  conversationId String
+  senderId       String
+  content        String
+  type           MessageType @default(text)
+  isEdited       Boolean     @default(false)
+  isDeleted      Boolean     @default(false)
+  isDelivered    Boolean     @default(false)
+  isSeen         Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  // Relationships
+  conversation  Conversation       @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender        User               @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  attachments   Attachment[]
+  reactions     MessageReaction[]
+
+  @@index([conversationId, createdAt])
+  @@index([senderId])
+}
+
+enum MessageType {
+  text
+  image
+  video
+  file
+  audio
+  system
+}
+
+// ─── Attachment Model ───────────────────────────────────────────────────────
+
+model Attachment {
+  id        String   @id @default(uuid())
+  messageId String
+  url       String
+  type      String   // MIME type
+  name      String
+  size      Int
+  createdAt DateTime @default(now())
+
+  // Relationships
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([messageId])
+}
+
+// ─── MessageReaction Model ──────────────────────────────────────────────────
+
+model MessageReaction {
+  id        String   @id @default(uuid())
+  messageId String
+  userId    String
+  emoji     String
+  createdAt DateTime @default(now())
+
+  // Relationships
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId, emoji])
+  @@index([messageId])
+}
+
+// ─── TypingStatus Model ─────────────────────────────────────────────────────
+
+model TypingStatus {
+  id             String   @id @default(uuid())
+  userId         String
+  conversationId String
+  isTyping       Boolean  @default(false)
+  updatedAt      DateTime @updatedAt
+
+  // Relationships
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, conversationId])
+  @@index([conversationId])
+}
+
+// ─── Notification Model ─────────────────────────────────────────────────────
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  type      NotificationType
+  title     String
+  body      String
+  data      Json     @default("{}")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@index([createdAt])
+}
+
+enum NotificationType {
+  new_message
+  mention
+  group_invite
+  group_update
+}
+
+// ─── Settings Model ─────────────────────────────────────────────────────────
+
+model Settings {
+  id                   String          @id @default(uuid())
+  userId               String          @unique
+  theme                ThemePreference @default(system)
+  notificationsEnabled Boolean         @default(true)
+  messageSound         Boolean         @default(true)
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum ThemePreference {
+  light
+  dark
+  system
+}
+
