@@ -1,6 +1,6 @@
 const DEFAULTS = {
-  appUrl: "http://localhost:3000",
-  apiUrl: "http://localhost:3000",
+  appUrl: "https://chat-appp-mu.vercel.app",
+  apiUrl: "https://chat-appp-mu.vercel.app",
   notifications: true,
   refreshInterval: 1,
   sound: true,

@@ -18,7 +18,8 @@ In development, any unpacked extension origin is accepted by the local API.
 ## Connect to Vercel
 
 1. Deploy Next.js with root directory `chatapp/my-app`.
-2. Set the extension's Web App URL and API URL to the production Vercel URL.
+2. The default Web App URL and API URL are both:
+   `https://chat-appp-mu.vercel.app`.
 3. Copy the extension ID shown on `chrome://extensions`.
 4. Add `CHROME_EXTENSION_ID` to the Vercel environment variables.
 5. Redeploy Next.js, then sign in through the extension popup.
