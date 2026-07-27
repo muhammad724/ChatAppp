@@ -294,171 +294,50 @@ export default function ConversationChatWindow() {
             {isConnected ? "Online" : "Reconnecting…"}
           </p>
         </div>
-        <div className="flex items-center gap-1 text-black">
-          <button
-            type="button"
-            onClick={() => setIsPinned((pinned) => !pinned)}
-            className={cn(
-              "rounded-full p-2 hover:bg-[#f2f5f2]",
-              isPinned && "bg-[#eef7f3] text-black"
-            )}
-            aria-label={isPinned ? "Unpin conversation" : "Pin conversation"}
-            aria-pressed={isPinned}
-          >
-            <Pin className="h-4 w-4" fill={isPinned ? "currentColor" : "none"} />
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              setOpenPanel((panel) => (panel === "images" ? null : "images"))
-            }
-            className={cn(
-              "rounded-full p-2 hover:bg-[#f2f5f2]",
-              openPanel === "images" && "bg-[#eef7f3] text-black"
-            )}
-            aria-label="View shared images"
-            aria-pressed={openPanel === "images"}
-          >
-            <ImageIcon className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              setOpenPanel((panel) => (panel === "files" ? null : "files"))
-            }
-            className={cn(
-              "rounded-full p-2 hover:bg-[#f2f5f2]",
-              openPanel === "files" && "bg-[#eef7f3] text-black"
-            )}
-            aria-label="View shared files"
-            aria-pressed={openPanel === "files"}
-          >
-            <FileText className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
+<div className="flex items-center gap-2">
+  <button
+    type="button"
+    onClick={() => setIsPinned((pinned) => !pinned)}
+    className={cn(
+      "rounded-xl p-2 text-black transition hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-800",
+      isPinned && "bg-violet-100 dark:bg-violet-900/40"
+    )}
+    aria-label={isPinned ? "Unpin conversation" : "Pin conversation"}
+    aria-pressed={isPinned}
+  >
+    <Pin
+      className="h-5 w-5 !text-black dark:!text-white"
+      fill={isPinned ? "currentColor" : "none"}
+    />
+  </button>
 
-      {openPanel && (
-        <div className="absolute right-5 top-20 z-20 w-72 rounded-2xl bg-white p-4 shadow-2xl shadow-black/15">
-          <div className="mb-3 flex items-center justify-between">
-            <h4 className="text-sm font-semibold text-black">
-              Shared {openPanel}
-            </h4>
-            <button
-              type="button"
-              onClick={() => setOpenPanel(null)}
-              className="rounded-full p-1.5 text-black hover:bg-[#f2f5f2]"
-              aria-label="Close shared media"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-          {openPanel === "images" ? (
-            sharedImages.length ? (
-              <div className="grid grid-cols-3 gap-2">
-                {sharedImages.map((image) => (
-                  <a
-                    key={image.id}
-                    href={image.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="aspect-square overflow-hidden rounded-xl bg-[#eef7f3]"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={image.url}
-                      alt={image.name}
-                      className="h-full w-full object-cover"
-                    />
-                  </a>
-                ))}
-              </div>
-            ) : (
-              <p className="rounded-xl bg-[#f5f7f5] p-4 text-center text-xs text-black">
-                No shared images yet
-              </p>
-            )
-          ) : sharedFiles.length ? (
-            <div className="space-y-2">
-              {sharedFiles.map((file) => (
-                <a
-                  key={file.id}
-                  href={file.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 rounded-xl bg-[#f5f7f5] p-3 text-xs text-black hover:bg-[#eef7f3]"
-                >
-                  <FileText className="h-4 w-4 shrink-0" />
-                  <span className="truncate">{file.name}</span>
-                </a>
-              ))}
-            </div>
-          ) : (
-            <p className="rounded-xl bg-[#f5f7f5] p-4 text-center text-xs text-black">
-              No shared files yet
-            </p>
-          )}
-        </div>
-      )}
+  <button
+    type="button"
+    onClick={() =>
+      setOpenPanel((panel) => (panel === "images" ? null : "images"))
+    }
+    className={cn(
+      "rounded-xl p-2 text-black transition hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-800",
+      openPanel === "images" && "bg-violet-100 dark:bg-violet-900/40"
+    )}
+    aria-label="View shared images"
+    aria-pressed={openPanel === "images"}
+  >
+    <ImageIcon className="h-5 w-5 !text-black dark:!text-white" />
+  </button>
 
-      {/* Messages Area */}
-<div
-        ref={messagesContainerRef}
-        className="flex-1 overflow-y-auto bg-[#eef7f3] px-4 py-5 sm:px-7"
-      >
-        {messages.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center text-center">
-            <MessageCircle className="mb-4 h-12 w-12 text-black dark:text-white" />
-            <h3 className="text-lg font-medium text-zinc-900 dark:text-white">
-              No messages yet
-            </h3>
-            <p className="mt-1 text-sm text-black dark:text-white">
-              Send a message to start the conversation
-            </p>
-          </div>
-        ) : (
-          <>
-            {groupedMessages.map((group) => (
-              <div key={group.date}>
-                {/* Date Separator */}
-<div className="my-4 flex items-center justify-center">
-                  <span className="rounded-full bg-white/75 px-4 py-1.5 text-[10px] font-medium text-black">
-                    {formatDateSeparator(group.date)}
-                  </span>
-                </div>
-
-                {/* Messages */}
-                {group.messages.map((message) => (
-                  <MessageBubble
-                    key={message.id}
-                    message={message}
-                    isOwn={
-                      message.senderId === currentUserId
-                    }
-                    showSender={conversation?.type === "group"}
-                  />
-                ))}
-              </div>
-            ))}
-          </>
-        )}
-
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Message Input */}
-      {sendError && (
-        <p className="mx-3 rounded-xl bg-red-50 px-4 py-2 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300">
-          {sendError}
-        </p>
-      )}
-      <MessageInput
-        onSend={handleSend}
-        onSendDrawing={handleSendDrawing}
-        onTyping={() => undefined}
-        onStopTyping={() => undefined}
-      />
-    </div>
-  );
-}
-
+  <button
+    type="button"
+    onClick={() =>
+      setOpenPanel((panel) => (panel === "files" ? null : "files"))
+    }
+    className={cn(
+      "rounded-xl p-2 text-black transition hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-800",
+      openPanel === "files" && "bg-violet-100 dark:bg-violet-900/40"
+    )}
+    aria-label="View shared files"
+    aria-pressed={openPanel === "files"}
+  >
+    <FileText className="h-5 w-5 !text-black dark:!text-white" />
+  </button>
+</div>
