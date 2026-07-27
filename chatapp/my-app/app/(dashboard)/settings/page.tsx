@@ -19,17 +19,15 @@ export default function SettingsPage() {
 
   if (!isAuthenticated || !user) {
     return (
-      <div className="flex h-full items-center justify-center p-6">
-        <div className="w-full max-w-md rounded-[2rem] bg-white/80 p-8 text-center shadow-2xl shadow-violet-950/10 dark:bg-white/5">
-          <LogIn className="mx-auto mb-4 h-10 w-10 text-black dark:text-white" />
-
-          <h1 className="text-xl font-semibold text-black dark:text-white">
+      <div className="flex h-full items-center justify-center bg-[#eef7f3] p-6 text-black">
+        <div className="w-full max-w-md rounded-[2rem] bg-white p-8 text-center shadow-2xl shadow-black/10">
+          <LogIn className="mx-auto mb-4 h-10 w-10 text-black" />
+          <h1 className="text-xl font-semibold text-black">
             Sign in to view your profile
           </h1>
-
           <Link
             href="/auth/login"
-            className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 via-indigo-600 to-cyan-500 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-500/20 transition-all hover:scale-[1.02]"
+            className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-[#dcefdc] px-4 py-2.5 text-sm font-semibold text-black shadow-lg shadow-black/10 transition-all hover:scale-[1.02] hover:bg-[#cde7cd]"
           >
             Go to login
           </Link>
@@ -39,27 +37,24 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="h-full overflow-y-auto p-4 sm:p-6">
+    <div className="h-full overflow-y-auto bg-[#eef7f3] p-4 text-black sm:p-6">
       <div className="mx-auto max-w-2xl animate-fade-in">
-        <h1 className="text-2xl font-bold text-black dark:text-white">
-          Profile Settings
+        <h1 className="text-2xl font-bold text-black">
+          Profile settings
         </h1>
-
-        <p className="mt-1 text-sm text-black dark:text-white">
-          View your account information and manage your session.
+        <p className="mt-1 text-sm text-black">
+          View your account and manage your session.
         </p>
 
-        <section className="mt-6 overflow-hidden rounded-[2rem] bg-white/80 shadow-2xl shadow-violet-950/10 dark:bg-white/5">
-          <div className="bg-gradient-to-r from-violet-500/15 via-indigo-500/10 to-cyan-400/10 px-6 py-8">
+        <section className="mt-6 overflow-hidden rounded-[2rem] bg-white shadow-2xl shadow-black/10">
+          <div className="bg-gradient-to-r from-[#dcefdc] via-[#eef7f3] to-[#fff2e7] px-6 py-8">
             <div className="flex items-center gap-4">
               <Avatar name={user.username} size="xl" isOnline />
-
               <div className="min-w-0">
-                <h2 className="truncate text-xl font-semibold text-black dark:text-white">
+                <h2 className="truncate text-xl font-semibold text-black">
                   {user.username}
                 </h2>
-
-                <p className="mt-0.5 text-sm text-black dark:text-white">
+                <p className="mt-0.5 text-sm text-black">
                   Online
                 </p>
               </div>
@@ -67,33 +62,29 @@ export default function SettingsPage() {
           </div>
 
           <div className="space-y-3 p-6">
-            <div className="flex items-center gap-3 rounded-2xl bg-violet-50/80 p-4 dark:bg-white/5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-sm dark:bg-zinc-800">
-                <UserRound className="h-5 w-5 text-black dark:text-white" />
+            <div className="flex items-center gap-3 rounded-2xl bg-[#f4f7f4] p-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-sm">
+                <UserRound className="h-5 w-5 text-black" />
               </div>
-
               <div>
-                <p className="text-xs font-medium uppercase tracking-wide text-black dark:text-white">
+                <p className="text-xs font-medium uppercase tracking-wide text-black">
                   Username
                 </p>
-
-                <p className="text-sm font-medium text-black dark:text-white">
+                <p className="text-sm font-medium text-black">
                   {user.username}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 rounded-2xl bg-violet-50/80 p-4 dark:bg-white/5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-sm dark:bg-zinc-800">
-                <Mail className="h-5 w-5 text-black dark:text-white" />
+            <div className="flex items-center gap-3 rounded-2xl bg-[#f4f7f4] p-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-sm">
+                <Mail className="h-5 w-5 text-black" />
               </div>
-
               <div className="min-w-0">
-                <p className="text-xs font-medium uppercase tracking-wide text-black dark:text-white">
-                  Email Address
+                <p className="text-xs font-medium uppercase tracking-wide text-black">
+                  Email address
                 </p>
-
-                <p className="truncate text-sm font-medium text-black dark:text-white">
+                <p className="truncate text-sm font-medium text-black">
                   {user.email}
                 </p>
               </div>
@@ -101,10 +92,10 @@ export default function SettingsPage() {
 
             <Button
               type="button"
-              variant="danger"
+              variant="outline"
               onClick={logout}
-              className="mt-2 w-full"
-              leftIcon={<LogOut className="h-4 w-4 text-black dark:text-white" />}
+              className="mt-2 w-full border-red-200 bg-red-50 text-black hover:bg-red-100"
+              leftIcon={<LogOut className="h-4 w-4" />}
             >
               Log out
             </Button>

@@ -2,9 +2,9 @@
 
 :root {
   --background: #f7f5ff;
-  --foreground: #17122b;
+  --foreground: #000000;
   --muted: #eeebf8;
-  --muted-foreground: #746d86;
+  --muted-foreground: #000000;
   --border: transparent;
   --accent: #7c3aed;
   --accent-foreground: #ffffff;

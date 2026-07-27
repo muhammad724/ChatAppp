@@ -95,7 +95,7 @@ export default function MessageBubble({
       <div className={messageClasses}>
         {/* Sender name (for group chats) */}
         {showSender && !isOwn && (
-          <p className="mb-1 text-xs font-medium text-[#92d18b]">
+          <p className="mb-1 text-xs font-medium text-white">
             {message.sender.username}
           </p>
         )}
@@ -130,9 +130,9 @@ export default function MessageBubble({
           {isOwn && (
             <>
               {message.isSeen ? (
-                <CheckCheck className="h-3.5 w-3.5 text-[#65c45b]" />
+                <CheckCheck className="h-3.5 w-3.5 text-black" />
               ) : message.isDelivered ? (
-                <CheckCheck className="h-3.5 w-3.5 text-[#65c45b]" />
+                <CheckCheck className="h-3.5 w-3.5 text-black" />
               ) : (
                 <Check className="h-3.5 w-3.5 text-black" />
               )}
