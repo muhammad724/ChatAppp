@@ -94,6 +94,22 @@ export async function getAuthPayload(): Promise<AuthPayload | null> {
 }
 
 /**
+ * Authenticate API requests from either the website cookie or an extension
+ * Authorization header. Bearer tokens are useful for clients that cannot
+ * access the website's HttpOnly cookie, such as a Chrome extension.
+ */
+export async function getAuthPayloadFromRequest(
+  request: Request
+): Promise<AuthPayload | null> {
+  const authorization = request.headers.get("authorization");
+  if (authorization?.startsWith("Bearer ")) {
+    return verifyToken(authorization.slice(7).trim());
+  }
+
+  return getAuthPayload();
+}
+
+/**
  * Get the authentication cookie name
  */
 export function getCookieName(): string {

@@ -1,11 +1,14 @@
 # ChatAppp
 
-This repository contains two related chat applications in separate folders:
+This repository contains the chat clients in separate folders:
 
 - [`chatapp/`](./chatapp) — Next.js web chat application with Prisma and PostgreSQL.
 - [`android-chat-app/`](./android-chat-app) — Expo mobile application and its server.
 
 ## Web application
+
+The [`chrome-extension/`](./chrome-extension) folder contains the Manifest V3
+companion with quick replies, unread badges, and browser notifications.
 
 ```bash
 cd chatapp/my-app

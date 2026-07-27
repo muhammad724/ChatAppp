@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Convo Companion Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="card">
+      <div class="brand"><span>C</span><div><p>CONVO COMPANION</p><h1>Extension settings</h1></div></div>
+      <p class="intro">Connect this extension to your local or deployed Convo web application.</p>
+      <form id="settingsForm">
+        <label>Web app URL<input id="appUrl" type="url" placeholder="https://your-app.vercel.app" required /><small>Used when opening the full conversation.</small></label>
+        <label>API URL<input id="apiUrl" type="url" placeholder="https://your-app.vercel.app" required /><small>Usually the same as the web app URL.</small></label>
+        <div class="grid">
+          <label>Refresh interval
+            <select id="refreshInterval">
+              <option value="1">Every minute</option>
+              <option value="2">Every 2 minutes</option>
+              <option value="5">Every 5 minutes</option>
+              <option value="15">Every 15 minutes</option>
+            </select>
+          </label>
+          <label>Theme
+            <select id="theme">
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+              <option value="system">System</option>
+            </select>
+          </label>
+        </div>
+        <label class="toggle"><input id="notifications" type="checkbox" /><span>Browser notifications</span></label>
+        <label class="toggle"><input id="sound" type="checkbox" /><span>Notification sound</span></label>
+        <div class="buttons">
+          <button type="submit">Save settings</button>
+          <button id="logoutButton" class="secondary" type="button">Sign out extension</button>
+        </div>
+        <p id="status" role="status"></p>
+      </form>
+      <aside>
+        <strong>Production setup</strong>
+        <p>Copy this extension's ID from <code>chrome://extensions</code> into the Vercel variable <code>CHROME_EXTENSION_ID</code>, then redeploy.</p>
+      </aside>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>

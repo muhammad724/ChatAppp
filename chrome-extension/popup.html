@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Convo</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section id="loginView" class="auth-view hidden">
+        <div class="brand-mark">C</div>
+        <p class="eyebrow">CONVO COMPANION</p>
+        <h1>Welcome back</h1>
+        <p class="muted">Sign in with the same account you use on the web app.</p>
+        <form id="loginForm" class="stack">
+          <label>Email<input id="email" type="email" autocomplete="email" required /></label>
+          <label>Password<input id="password" type="password" autocomplete="current-password" required /></label>
+          <button id="loginButton" class="primary" type="submit">Sign in</button>
+        </form>
+        <p id="loginError" class="error hidden"></p>
+        <button id="openOptionsLogin" class="text-button" type="button">Configure app URL</button>
+      </section>
+
+      <section id="appView" class="hidden">
+        <header class="topbar">
+          <div class="profile">
+            <div id="userAvatar" class="avatar avatar-large"></div>
+            <div>
+              <strong id="userName">Convo</strong>
+              <span class="status"><i></i> Online</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button id="refreshButton" class="icon-button" title="Refresh" aria-label="Refresh">↻</button>
+            <button id="optionsButton" class="icon-button" title="Settings" aria-label="Settings">⚙</button>
+          </div>
+        </header>
+
+        <div id="listView">
+          <div class="title-row">
+            <div><p class="eyebrow">INBOX</p><h1>Messages</h1></div>
+            <span id="totalUnread" class="total-badge hidden">0</span>
+          </div>
+          <label class="search">
+            <span>⌕</span>
+            <input id="searchInput" type="search" placeholder="Search conversations" />
+          </label>
+          <div id="notice" class="notice hidden"></div>
+          <div id="conversationList" class="conversation-list" aria-live="polite"></div>
+          <button id="openFullApp" class="full-app" type="button">Open full Convo <span>↗</span></button>
+        </div>
+
+        <div id="chatView" class="chat-view hidden">
+          <div class="chat-header">
+            <button id="backButton" class="icon-button" aria-label="Back">←</button>
+            <div id="chatAvatar" class="avatar"></div>
+            <div class="chat-person"><strong id="chatName"></strong><span>Conversation</span></div>
+            <button id="openConversation" class="icon-button" title="Open in Convo">↗</button>
+          </div>
+          <div id="messageList" class="message-list" aria-live="polite"></div>
+          <form id="messageForm" class="composer">
+            <input id="messageInput" placeholder="Write a message…" autocomplete="off" maxlength="4000" />
+            <button id="sendButton" type="submit" aria-label="Send">➤</button>
+          </form>
+          <p id="messageError" class="error compact hidden"></p>
+        </div>
+      </section>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
