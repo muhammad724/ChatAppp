@@ -1,0 +1,76 @@
+name: Build Convo for Windows
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "desktop-chat-app/**"
+      - ".github/workflows/build-convo-windows.yml"
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    working-directory: desktop-chat-app
+
+jobs:
+  build-windows:
+    name: Windows installer
+    runs-on: windows-2022
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: desktop-chat-app/package-lock.json
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust build
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: desktop-chat-app/src-tauri
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Verify frontend
+        run: npm run build
+
+      - name: Build Tauri application
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: desktop-chat-app
+          tagName: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
+          releaseName: ${{ startsWith(github.ref, 'refs/tags/v') && format('Convo {0}', github.ref_name) || '' }}
+          releaseBody: ${{ startsWith(github.ref, 'refs/tags/v') && 'Download and install Convo for Windows.' || '' }}
+          releaseDraft: false
+          prerelease: false
+
+      - name: Upload Windows installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: Convo-Windows
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            desktop-chat-app/src-tauri/target/release/convo.exe
+            desktop-chat-app/src-tauri/target/release/bundle/msi/*.msi
+            desktop-chat-app/src-tauri/target/release/bundle/nsis/*-setup.exe
